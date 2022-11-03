@@ -1,0 +1,104 @@
+/* CSS für die Lese - SpeicherMaske */
+#db-area{
+	text-align:left;
+	padding:1rem;
+	font-weight: 900;
+	text-shadow: 0 0 10px rgb(255, 255, 255);
+	color:rgb(0, 0, 0);
+}
+
+/* save load Area  */
+
+.area-aktiv{
+	position:absolute;
+	z-index:100;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	background: rgba(164, 158, 158, 0.782);
+}
+
+.area-passiv{
+	height:0px;
+	width:0px;
+}
+
+#db-area #innerwrap{
+	max-width:80%;
+	margin:auto;
+}
+
+#db-area button{
+	margin-top:2rem;
+	padding: 0.5vw 1vw;
+	display:block;
+	cursor:pointer;
+}
+
+#db-area .item{
+	background-color: rgba(247, 0, 0, 0.219);
+	margin-top:0.5rem;
+	padding:0.4rem;
+	max-width: 30rem;
+	
+}
+
+#db-area .loader{
+	display:inline-block;
+	margin-left:1rem;
+	margin-top:0.3rem;
+	margin-bottom:0.3rem;
+	}
+
+#db-area .delete{
+	width:1rem;
+	display:inline-block;
+	padding:0;
+	margin-left:1rem;
+	margin-top:0.3rem;
+	margin-bottom:0.3rem;
+	}
+
+#db-area .titel{
+	display:inline-block;
+	color:rgb(250, 248, 248);
+	width:15rem;
+	font-size: 1.2rem;
+	}
+		
+#db-area input{
+	width:70%;
+	margin-top:2rem;
+	text-align: left;
+}
+
+#db-area input::placeholder{
+	color: rgb(165, 164, 164);
+}
+
+#db-area h2, #save-area h3{
+	width:70%;
+	text-align:left;
+}
+
+#db-area p{
+	width:70%;
+	text-align:left;
+	
+}
+
+#save-area {
+	display: flex;
+}
+
+/***** EDITS ******/
+
+#save, #load {
+    margin-bottom: 2vw;
+    width: 6vw;
+}
+
+#saveproject {
+	margin: 0 2vw;
+}
