@@ -3,7 +3,7 @@ import { patternChange, kitCountToZero, soundCSSArr, stepCSSArr, previewSound } 
 import { activePtnChange, changeVoiceArr, drumHit, hiHatHit, ptnArr } from './sounds.js';
 
 
-// ########### VARIABLEN ###############
+// ########### VARIABLES ###############
 export let  beatCount,
             bpm,
             bpmInput, 
@@ -18,8 +18,16 @@ export let  beatCount,
 // ####################################
 // ########### INIT-ZUSTAND ###########
 
-
-// init Values bei pageload vergeben
+/**
+ * Assigns init values to all parameters upon pageload
+ * @function initValue   
+ * @return {String}  'activeSound' to soundCSSArr -- set first sound to be the active sound
+ * @return {String}  show name of currently selected kit in display
+ * @return {int}     define active pattern number
+ * @return {boolean} set 'pattern active' to 'true' for stepCSSArr[0]
+ * @return {float}   set init volume
+ * @return {int}     set init BPM
+*/
 export function initValue (){
 
   // Vorauswahl Sound Button 1 bei Laden der Seite
@@ -43,13 +51,17 @@ export function initValue (){
   el('#bpm').setAttribute('value', bpm);
 }
 
-// loopCycle bei pageload und Stop auf Null setzen
+
+/**
+ * Assigns init values for the sequencer's time loop
+ * @function initTime
+ */
 export function initTime (){
 
     stopTime = true;
     previewSound();
 
-    // Lauflicht ausschalten
+    // Removes loopLight-class from previously active button
     stepCSSArr.forEach((button) => {
       button.classList.remove('loopLight');
     })
@@ -69,7 +81,7 @@ bpmInput = el('#bpm');
 
 bpmInput.onchange = function() {  
   bpm = bpmInput.value;
-};
+}
 
 
 // ############ LOOP-FUNKTION #######################
