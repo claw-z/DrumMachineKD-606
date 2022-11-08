@@ -16,37 +16,29 @@ export let  beatCount,
 
 
 // ####################################
-// ########### INIT-ZUSTAND ###########
+// ########### INIT STATE ###########
 
 /**
  * Assigns init values to all parameters upon pageload
- * @function initValue   
- * @return {String}  'activeSound' to soundCSSArr -- set first sound to be the active sound
- * @return {String}  show name of currently selected kit in display
- * @return {int}     define active pattern number
- * @return {boolean} set 'pattern active' to 'true' for stepCSSArr[0]
- * @return {float}   set init volume
- * @return {int}     set init BPM
 */
 export function initValue (){
 
-  // Vorauswahl Sound Button 1 bei Laden der Seite
+  // Set first sound to be the active sound
   soundCSSArr[0].classList.add('activeSound');
 
-  // Auswahl des init-Sound-Kits
+  // Select kit and show its name in display
   kitCountToZero();
   el('#kit-display').innerText = 'TR-606';
 
-  // Das Pattern mit Index [0] wird zum aktiven Pattern erklärt 
+  // Define active pattern number
   activePtnChange(0);
-  // Vorauswahl aktives Pattern
   changeVoiceArr(ptnArr[0]);
   stepCSSArr[0].setAttribute('pattern-active', 'true');
 
-  // Volume bekommt einen init-Wert
+  // Set init volume
   el('#volume').setAttribute('value', 0.3);
 
-  // bpm bekommt einen init-Wert
+  // Set init BPM
   bpm = 130;
   el('#bpm').setAttribute('value', bpm);
 }
@@ -54,14 +46,13 @@ export function initValue (){
 
 /**
  * Assigns init values for the sequencer's time loop
- * @function initTime
  */
 export function initTime (){
 
     stopTime = true;
     previewSound();
 
-    // Removes loopLight-class from previously active button
+    // Removes loopLight-class from currently lit button
     stepCSSArr.forEach((button) => {
       button.classList.remove('loopLight');
     })
@@ -70,13 +61,13 @@ export function initTime (){
 
 
 // ###############################################
-// ################# TAKT-LOOP ###################
+// ################# BAR LOOP ###################
 // ###############################################
 
 
-// ####### BPM UND TAKTLÄNGE BESTIMMEN ##########
+// ############## SET BPM ################
 
-// bpm wird aus dem Input-Feld ausgelesen
+// Reads bpm from input value
 bpmInput = el('#bpm');
 
 bpmInput.onchange = function() {  
@@ -84,9 +75,11 @@ bpmInput.onchange = function() {
 }
 
 
-// ############ LOOP-FUNKTION #######################
+// ##################### ONE-BAR LOOP #######################
 
-// Generieren des Takt-Loops mit externem Worker--> loopToggle
+/** 
+ * Generates one-bar loop via external service worker --> loopToggle 
+ */
 export function loopCycle() {
 
   if (stopTime == true) {
@@ -102,6 +95,7 @@ export function loopCycle() {
     bpm = bpmInput.value
     myWorker.postMessage([bpm]);
 
+    // function executed upon message to service worker
     myWorker.onmessage = function(e) {
 
       let msg = e.data
@@ -109,17 +103,17 @@ export function loopCycle() {
       switch (msg) {
         
         case 'beat': beatCount ++;
-        // Wenn beatCount 16 erreicht, beginne wieder bei 1
+        // Restart beatCount upon reaching a value of 16
         if (beatCount === 16) {
 
           beatCount = 0;          
-          // Pattern wird erst bei beatCount = 0 geändert, wenn "INST PTN" aus ist
+          // Pattern change only occurs on beatCount = 0, if "INST PTN" is off
           if(!el('#instant-checkbox').checked) {
               patternChange();
           }
         }
 
-        // Lauflicht und Drumsounds auslösen
+        // trigger loop light and drum sounds
         loopLight();
         drumHit();
         hiHatHit();
@@ -136,7 +130,9 @@ export function loopCycle() {
 }
 
 
-// Starten und Stoppen des Loops --> spaceBarPlay(), app.js
+/**
+ * Starts and stops sequencer loop --> spaceBarPlay(), app.js
+ */
 export function loopToggle() {
 
   if (stopTime === true) {      
@@ -150,36 +146,46 @@ export function loopToggle() {
   }
 }
 
-// loopToggle an Space-Taste binden
+/**
+ * Links above loopToggle function to space bar
+ */
 export function spaceBarPlay() {
 
-  // if (el('#db-area').className == 'area-passiv'){
     document.body.onkeyup = function(e) {
       if (e.key == " " || e.code == "Space"){
 
             loopToggle();
-            // verhindern, dass die Space-Taste bei Fokus auf einen Button diesen auslöst
+            // Prevents space bar from triggering focused elements
             e.preventDefault();
       }
     }
-  // }
 }
 
 
 
-// #####################################
-// ############ LAUFLICHT ##############
+// ##########################################
+// ############ SEQUENCER LIGHT #############
 
-// Lauflicht leuchtet auf --> loopLight
+/**
+ * Lights up a sequencer button --> loopLight
+ * @param {string} button                   One of 16 sequencer buttons
+ * @returns {string} button.classList.add   Adds class 'loopLight' to button
+ */
 function loopLightOn (button) {
   return button.classList.add('loopLight');
 }
-// Lauflicht erlischt --> loopLight
+/**
+ * Lets sequencer button light go out --> loopLight
+ * @param {string} button                     One of 16 sequencer buttons
+ * @returns {string} button.classList.remove  Removes class 'loopLight' from button
+ */
 function loopLightOff (button) {
   return button.classList.remove('loopLight');
 }
 
-// Step-Buttons leuchten entprechend der Counter-Position im Loop auf --> loopCycle
+/**
+ * Lets sequencer buttons light up and go out according to position in active loop --> loopCycle
+ */
 function loopLight () {
 
   for (let i = 0; i < stepCSSArr.length; i ++) {
