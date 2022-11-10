@@ -69,7 +69,6 @@ export function initTime (){
 
 // Reads bpm from input value
 bpmInput = el('#bpm');
-
 bpmInput.onchange = function() {  
   bpm = bpmInput.value;
 }

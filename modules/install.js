@@ -1,3 +1,6 @@
+/**
+ * Creates installer and install button
+ */
 export function addInstallButton(){
   let deferredPrompt;
 	const addBtn = document.querySelector('.add-button');

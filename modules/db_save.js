@@ -3,10 +3,12 @@ import {el } from './lib.js';
 import { loopToggle, stopTime } from './main.js';
 import { ptnArr } from './sounds.js';
 
-
+/**
+ * Generates save area
+ */
 export async function showSaveArea(){
 
-    // Loop anhalten bei Klick auf Save
+    // Stops running sequencer loop when clicking 'Save' button
     if(!stopTime) {loopToggle();}
 
     const dbArea = el('#db-area');
@@ -16,25 +18,27 @@ export async function showSaveArea(){
     const data = await (await fetch('data/db-saver.html')).text();
     dbArea.innerHTML = data;
 
-    // abbrechen
+    // Closes save area upon clicking 'Cancel' button
     el('#cancel').addEventListener('click',function(){
     dbArea.innerHTML = '';
     dbArea.className = 'area-passiv';
    });
 
-   // speichern
+   // Exectues save function upon clicking 'Save' button
    el('#saveproject').addEventListener('click',saveProject);
 }
 
-
+/**
+ * Saves project file
+ */
 async function saveProject(){
     
     const title = el('#project-title').value;
     
-    // Prüfung ob Titel Eingabe erfolgt ist
+    // Check if project name has been entered
     if(title === '') {return alert('Please enter a project name');}
 
-    // Prüfung, ob der Titel schon vergeben ist
+    // Check if project name is already in use
     const data = await db.readAll();
 
     data.forEach((project) => {
@@ -57,7 +61,7 @@ async function saveProject(){
     
     db.update(project);
     
-     // Maske wieder weg
+     // Close save area
     el('#db-area').className = 'area-passiv';
     el('#db-area').innerHTML = '';
 

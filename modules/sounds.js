@@ -8,9 +8,9 @@ import { beatCount } from './main.js';
 // ######################################
 
 
-// ####### LADEN DER DRUMKITS AUS JSON-DATEIEN ########
+// ####### LOADING DRUM KITS FROM JSON-FILES ########
 
-// Dateipfade der Drumkits in ein Array speichern
+// Saves file location to array
 const paths = [
   'data/tr606.json',
   'data/tr707.json',
@@ -19,25 +19,24 @@ const paths = [
   'data/linndrum.json'
 ];
 
-// Array mit unaufgelösten Versprechen
+// Array with unresolved promises
 const proms = [];
 paths.forEach((path) => {
     proms.push(loadJSON(path));
 });
 
-// Alle Drumkits in eigene Arrays laden
+// Loads all drum kits into individual arrays
 const [tr606,tr707,tr808,cr78,linndrum] = await Promise.all(proms);
-// Daten geladen!
+// Files now loaded!
 
 
 
 // ############## SOUNDS ABSPIELEN ####################
 
 
-
 export const soundObj = {    
   
-    // Wiedergabe von Sounds --> drumHit
+    // Plays back a sound --> drumHit
     playSound: function(i){
       
       let drumSound = new Audio();
@@ -63,11 +62,13 @@ export const soundObj = {
       drumSound.play();
       console.log(drumSound.getAttribute('src'));
     },
+ 
 
-    // Hihat-Audio wird außerhalb der Funktion definiert, damit eine gerade erklingende Hihat bei Auslösen einer neuen Hihat abgeschnitten wird
     hiHat: new Audio(),
-
-
+    /**
+     * Audio for hihats defined separately: any hihat playing back shall be choked by overlapping subsequential hihat triggers
+     * @param {Int} i   Integer for drum kit array index 
+     */
     playHiHat: function(i){
       let hiHat = this.hiHat;
       hiHat.volume = inputVolume;
@@ -89,20 +90,20 @@ export const soundObj = {
       }
   
       hiHat.play();
-      console.log(hiHat.getAttribute('src'));
+      // console.log(hiHat.getAttribute('src'));
     },
 }
   
 
 
-// ############## LAUTSTÄRKE DEFINIEREN #####################
-// Volume-Slider selektieren
+// ############## SET VOLUME #####################
+// Select volume slider
 let volumeSlider = el('#volume');
 
-// Volume-Slider-Wert auslesen
+// Read value of volume slider
 let inputVolume = volumeSlider.value;
 
-// Lautstärke ändern bei Betätigen des Volume Slider
+// Change volume upon volume slider value change
 volumeSlider.onchange = function() {
 inputVolume = volumeSlider.value;
 };
@@ -110,10 +111,10 @@ inputVolume = volumeSlider.value;
 
 
 
-// ########## SPEICHER FÜR STEPS UND PATTERNS DEFINIEREN ##########
+// ########## STEP AND PATTERN MEMORY ##########
 
 
-// Grundform Step-Speicher: je 16 Steps für jede der 8 Stimmen
+// Basic step memory: 16 Steps each for all 8 voices
 export let voiceArr = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -125,43 +126,53 @@ export let voiceArr = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ];
 
-// Pattern-Speicher
-// Leeres Pattern-Array
+// Empty pattern memory
 export let ptnArr = [];
 
-// 16 voiceArr-Kopien in das ptnArr speichern
+// Save 16 copies of voiceArr into ptnArr
 for (let i = 0; i < 16; i++) {
-    // pusht 16x eine real copy in pattArr // voiceArr ist nicht im pattArr!
+    // pushes 16 *real copies* into ptnArr
     let arrayCopy = JSON.parse(JSON.stringify(voiceArr)); 
     ptnArr.push(arrayCopy);
 }
 
-// Variable für das momentan aktive Pattern
+// Variable for any currently active pattern
 export let activePtn;
 
 
 
-// ######### PATTERNS WECHSELN #########
+// ######### CHANGING PATTERNS #########
 
-// Bei Laden einer neuen Projektdatei wird das ganze Pattern-Array ausgetauscht --> db_joad.js / loadItem()
+/**
+ * Load ptnArray upon loading project file --> db_joad.js / loadItem()
+ * @param {Int} i   Number of ptnArray to be loaded
+ */
 export function ptnArrChange (i) {
     ptnArr = i;
   }
 
-// Beim Wechsel des Patterns ein anderes voiceArr auswählen --> buttons.js/ patternChange()
+/**
+ * Switch voiceArr upon changing patterns --> buttons.js/ patternChange()
+ * @param {Int} i   Number of active voiceArr
+ */
 export function changeVoiceArr (i) {
     voiceArr = i;
 }
 
-// Aktives Pattern umdefinieren
+/**
+ * Set active pattern
+ * @param {Int} i   Number of active pattern
+ */
 export function activePtnChange (i) {
   activePtn = i;
 }
 
 
-// ######### SOUNDS AUSLÖSEN #########
+// ######### TRIGGER DRUM SOUNDS ##########
 
-// Auslösen der DrumHits für alle gesetzten Steps --> loopCycle
+/**
+ * Trigger drum sound for all active steps --> loopCycle (main.js)
+ */
 export function drumHit() {
 
         for (let j = 0; j < voiceArr.length-2; j ++) {
@@ -177,17 +188,20 @@ export function drumHit() {
     }
 }
 
-// Sonderfunktion für Hihats, die sich gegenseitig auslöschen sollen
+
+/**
+ * Trigger hihats for all active steps; hihat playback is choked by overlapping hihat triggers --> loopCycle (main.js)
+ */
 export function hiHatHit() {
 
   for (let i = 0; i < voiceArr[6].length; i ++) {
-    // wird die OHH gesetzt, entfernt sie den Step der CHH an der gleichen Stelle...
+    // OHH replaces CHH if entered on the same step...
     if(beatCount === i && voiceArr[6][i] === 1){
 
       voiceArr[7][i] = 0;
       soundObj.playHiHat(6);
     }
-    // ...und umgekehrt
+    // ...and vice versa
     if(beatCount === i && voiceArr[7][i] === 1){
 
       voiceArr[6][i] = 0;

@@ -1,7 +1,9 @@
+/**
+ * Registers service worker for app installer
+ */
 export function serviceWorkerAktiv(){
     if('serviceWorker' in navigator){
         
-        // ServiceWorker registrieren
         navigator.serviceWorker.register('../service-worker.js',{scope:'./'})
         .then(() => {
             console.log('Service Worker erfolgreich registriert');
