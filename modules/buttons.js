@@ -3,29 +3,29 @@ import { stopTime } from "./main.js";
 import { activePtn, activePtnChange, changeVoiceArr, ptnArr, soundObj, voiceArr } from "./sounds.js";
 
 
-// ########## VARIABLEN ###############
+// ########## VARIABLES ###############
 export let kitCount;
 
 
-// ####### BUTTON-ARRAYS ##############
+// ####### BUTTON ARRAYS ##############
 
-// Step-Buttons
+// Step buttons
 export const stepCSSArr = group('#sequencer button');
-// Jedem Step-Button ein Data-Index geben
+// Assign index to each step button
 stepCSSArr.forEach((button, index) => {
   button.setAttribute('data-step', index);
   button.setAttribute('pattern-active', 'false');
 })
-// Sound-Buttons
+// Sound buttons
 export const soundCSSArr = group('#sounds button');
-// Jedem Sound-Button ein Data-Index geben
+// Assign index to each sound button
 soundCSSArr.forEach((button, index) => {
   button.setAttribute('data-index', index);
 })
 
 
 // #####################################
-// ########## SOUND-BUTTONS ############
+// ########## SOUND BUTTONS ############
 // #####################################
 
 // Mithilfe der Sound-Buttons zwischen den einzelnen Stimmen hin- und herwechseln und die jeweilig gesetzten Steps auf den Step-Buttons abbilden

@@ -4,9 +4,12 @@ import {el, create} from './lib.js';
 import { initValue, loopToggle, stopTime } from './main.js';
 import { ptnArrChange } from './sounds.js';
 
+/**
+ * Generates 'Load' area HTML
+ */
 export async function showLoadArea(){
 
-   // Loop anhalten bei Klick auf Load
+   // Stops sequencer when clicking 'Load' button
    if(!stopTime) {loopToggle();}
 
    const dbArea = el('#db-area');
@@ -15,7 +18,7 @@ export async function showLoadArea(){
    const data = await (await fetch('./data/db-loader.html')).text();
    dbArea.innerHTML = data;
    
-   // abbrechen
+   // Makes 'Load' area disappear when clicking 'Cancel'
    el('#cancel').addEventListener('click',function(){
     dbArea.innerHTML = '';
     dbArea.className = 'area-passiv';
@@ -24,6 +27,9 @@ export async function showLoadArea(){
    dbAusgabe();
 }
 
+/**
+ * Checks whether project files are available before 'Load' area is generated
+ */
  async function dbAusgabe(){
     
     const data = await db.readAll();
@@ -43,6 +49,10 @@ export async function showLoadArea(){
 
 }
 
+/**
+ * Creates overview of available project files in 'Load' area
+ * @param {String} data  Project files saved in db
+ */
 function dbGenerator(data){
     const wrapper = create('div');
     wrapper.setAttribute('id','item-wrapper');
@@ -51,14 +61,14 @@ function dbGenerator(data){
         div.className = 'item';
 
         //###############################
-        // span Element für den Titel
+        // Span element for file name
         const span = create('span');
         span.className = 'titel';
         span.innerText = `Project Name: ${item.title}`;
         div.append(span);
 
         //#################################
-        // load Button
+        // 'Load' button
         const loadBtn = create('button');
         loadBtn.setAttribute('data-id',item.id);
         loadBtn.className = 'loader';
@@ -67,7 +77,7 @@ function dbGenerator(data){
         div.append(loadBtn);
 
         //###################################
-        // delete Button
+        // 'Delete' button
         const delBtn = create('button');
         delBtn.setAttribute('data-id',item.id);
         delBtn.className = 'delete';
@@ -78,64 +88,68 @@ function dbGenerator(data){
         //###################################
         wrapper.append(div);
 
-    });// ENDE forEach
+    });// END of 'forEach'
 
     el('#show-projects').innerHTML = '';
     el('#show-projects').append(wrapper);
 
 }
 
-//####################################################
-// delete Button Script
+//########################################
+/**
+ * Deletes project file from db 
+ */
 function deleteItem(){
-    // 1. Warnung an User
+    // 1. Warning message
     if(!confirm('Attention! You are deleting a project!')){
         return;
     };
 
-    // 2. Löschen aus der db
+    // 2. Delete from db
     const key = parseInt(this.getAttribute('data-id'));
     db.deleteItem(key);
 
-    // 3. Eintrag as DOM löschen
+    // 3. Remove DOM entry
     el('#item-wrapper').removeChild(this.parentNode);
 }
 
-
+/**
+ * Loads project file from db
+ */
 async function loadItem(){
-    // 1. gesuchtes Projekt aus db auslesen
+    // 1. Read project file from db
     const key = parseInt(this.getAttribute('data-id'));
 
     const project = await db.readItem(key);
    
     if(!project){
-        // Botschaft an user
+        // Error message
         return alert('Not a valid file');
     }
 
-    // Alle Werte an die App übergeben
-    // 1. Titel übergeben
+    // Pass all values to app
+    // 1. Show file name
     el('#file-info').innerText = `Project: ${project.title}`;
 
-    // 2. alle Patterns wiederherstellen
+    // 2. Load project patterns
     ptnArrChange(project.patterns);
 
-    // 3. Sound-Button ausschalten
+    // 3. Turn off active sound button
     soundCSSArr.forEach((button) =>{  
         button.classList.remove('activeSound');
       }); 
 
-    // 4. Pattern auf den Steps abbilden
+    // 4. Show pattern on step buttons
     initValue();
     deleteCSSArr();
     voiceArrToStepCSSArr();
 
-    // mode Switch auf Step-Modus stellen
+    // Set mode switch to 'Step' mode
     el('#mode-switch').checked = false;
-    // kitCount auf Null setzen
+    // Set kit count to zero
     kitCountToZero();   
 
-    // HTML Maske weg
+    // Remove 'Load' area HTML
     const dbArea = el('#db-area');
     dbArea.innerHTML = '';
     dbArea.className = 'area-passiv';

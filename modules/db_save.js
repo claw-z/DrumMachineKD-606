@@ -4,11 +4,11 @@ import { loopToggle, stopTime } from './main.js';
 import { ptnArr } from './sounds.js';
 
 /**
- * Generates save area
+ * Generates 'Save' area
  */
 export async function showSaveArea(){
 
-    // Stops running sequencer loop when clicking 'Save' button
+    // Stops sequencer when clicking 'Save' button
     if(!stopTime) {loopToggle();}
 
     const dbArea = el('#db-area');
