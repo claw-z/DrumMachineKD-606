@@ -1,3 +1,7 @@
+/**
+ * Commands for db_load.js and db_save.js
+ */
+
 import {set,del,values,get, keys} from './idb-src.js';
 
 export const db = {

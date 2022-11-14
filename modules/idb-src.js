@@ -1,3 +1,7 @@
+/**
+ * EXISTING SCRIPT USED
+ */
+
 function promisifyRequest(request) {
     return new Promise((resolve, reject) => {
         // @ts-ignore - file size hacks

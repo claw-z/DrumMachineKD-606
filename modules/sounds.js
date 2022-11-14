@@ -31,7 +31,7 @@ const [tr606,tr707,tr808,cr78,linndrum] = await Promise.all(proms);
 
 
 
-// ############## SOUNDS ABSPIELEN ####################
+// ############## PLAY SOUNDS ####################
 
 
 export const soundObj = {    

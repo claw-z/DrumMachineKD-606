@@ -28,7 +28,9 @@ soundCSSArr.forEach((button, index) => {
 // ########## SOUND BUTTONS ############
 // #####################################
 
-// Mithilfe der Sound-Buttons zwischen den einzelnen Stimmen hin- und herwechseln und die jeweilig gesetzten Steps auf den Step-Buttons abbilden
+/**
+ * Switches between voices via the sound buttons; steps programmed for each sound are displayed by the step buttons after the respective sound is selected
+ */
 export function toggleSound() {
   
   soundCSSArr.forEach((button) =>{  
@@ -40,17 +42,20 @@ export function toggleSound() {
   voiceArrToStepCSSArr();  
 }
 
-// Lichter der Sound-Buttons bei Mode-Wechsel regulieren --> modeSwitch() 
+/**
+ * Turns off all sound button lights, then switches on the active sound's button light --> modeSwitch()
+ */ 
 function soundBtnLight() {
 
-  // Alle Sound-Button-Lichter löschen und das aktive anmachen
   soundCSSArr.forEach((button) =>{  
     button.classList.remove('activeSound');
   }); 
   this.classList.add('activeSound');
 }
 
-// Bei Wechsel des Sound-Buttons zunächst alle Step-Lichter des vorher ausgewählten Sounds löschen --> toggleSound
+/**
+ * Turns off all step lights --> toggleSound
+ */
 export function deleteCSSArr() {
 
   stepCSSArr.forEach((button) => {
@@ -58,7 +63,9 @@ export function deleteCSSArr() {
   })
 }
   
-// Gespeichertes voiceArr[j] je nach ausgewählter Stimme j auf den Step Buttons abbilden!! --> toggleSound
+/**
+ * Displays all programmed steps (voiceArr) per voice (j) via step button lights (soundCSSArr) --> toggleSound
+ */
 export function voiceArrToStepCSSArr() {
   
   for(let j = 0; j < voiceArr.length; j++){
@@ -74,24 +81,27 @@ export function voiceArrToStepCSSArr() {
   }
 }
 
-
-// Sound auslösen --> previewSound()
+/**
+ * Plays sound --> previewSound()
+ */
 function triggerSound () {
   let dataIndex = this.getAttribute('data-index');
   soundObj.playSound(dataIndex);
 }
 
-
-// Sounds beim Betätigen der Sound-Buttons erklingen lassen --> loopToggle()
+/**
+ * Plays sounds when pressing sound buttons --> loopToggle()
+ */
 export function previewSound() {
 
+  // When in pattern mode, play sound
   if(el('#mode-switch').checked){
     soundCSSArr.forEach((button) => {
       button.addEventListener('click', triggerSound);
     })
   }
   else{
-
+  // When in step mode, only play sound if sequencer not running
   soundCSSArr.forEach((button) => {
 
     if(stopTime) {
@@ -105,12 +115,13 @@ export function previewSound() {
 
 
 // #########################################
-// ############ STEP-BUTTONS ###############
-// ####### für Steps und Patterns ##########
+// ############ STEP BUTTONS ###############
+// ####### for steps and patterns ##########
 // #########################################
 
-// Wenn ein Step-Button auf 'step-active' gesetzt wird, während ein Sound-Button aktiviert ist, wird der aktive Step in die entsprechende Position der entsprechenden Stimme im voiceArr gespeichert --> toggleStep
-
+/**
+ * Saves activated steps into voiceArr of currently active voice --> toggleStep
+ */
 function saveToVoiceArr() {
     for (let j = 0; j < voiceArr.length; j ++) { 
 
@@ -123,10 +134,10 @@ function saveToVoiceArr() {
         }  
     }
 }
-  
-// Lässt die Step-Buttons beim Klicken aufleuchten und ausgehen 
-// --> app.js, addMouseOver(), removeMouseOver()
-// Führt die Funktion saveToVoiceArr aus
+
+/**
+ * Toggles step lights to on and off --> addMouseOver(), removeMouseOver() (app.js) 
+ */
 export function toggleStep () {
   
     if(!this.classList.contains('step-active')){
@@ -139,7 +150,9 @@ export function toggleStep () {
     }
 }
 
-// Weist die Mouseover-Mechanik den Step-Buttons zu
+/**
+ * Adds mouseover feature to step-buttons
+ */
 export function addMouseOver(){
 
   group('#sequencer button').forEach((button)=>{
@@ -147,7 +160,9 @@ export function addMouseOver(){
   })
 }
 
-// Entfernt die Mouseover-Mechanik wieder
+/**
+ * Removes mouseover feature from step buttons
+ */
 export function removeMouseOver(){
 
   group('#sequencer button').forEach((button)=>{
@@ -156,30 +171,35 @@ export function removeMouseOver(){
 }
 
 
-// #### STEP-BUTTONS IM PATTERN-MODE #####
-// Pattern-Wechsel per Step-Buttons
+// #### STEP BUTTONS FOR PATTERN MODE #####
+
+/**
+ * Changes patterns via step buttons
+ */
 export function togglePattern() {
 
-  // alle aktive Lichter löschen (aus Step Mode) & alle Patterns auf false setzen
+  // Turns off all active step lights and thus sets all patterns to 'false'
   stepCSSArr.forEach((button) => {
     button.classList.remove('step-active');    
   });
 
-  // für geklickten Button pattern-active auf true setzen & leuchten lassen
+  // Adds 'step-active' and 'pattern-active' to button
   this.classList.add('step-active');
   this.setAttribute('pattern-active', 'true');
 
-  // aktives Pattern dem voiceArr zuordnen UMBENENNEN
+  // Assigns index of active step to be index of active pattern
   activePtnChange(this.getAttribute('data-step'));
   
-  // das aktive Pattern sofort ändern, wenn der INST-Button aktiv ist oder wenn Loop nicht läuft
+  // Toggles pattern instantaneously if INST button active or sequencer not running
   if(el('#instant-checkbox').checked || stopTime) {
     patternChange();
   }
   return;
 }
 
-// Ändert das aktuell aktive Pattern
+/**
+ * Changes currently active pattern
+ */
 export function patternChange() {
 
   changeVoiceArr(ptnArr[activePtn]);
@@ -191,64 +211,68 @@ export function patternChange() {
   }
 }
 
-// Den Instant-Pattern-Button ein-/ausschalten
+/**
+ * Toggles INST (instant pattern change) button
+ */
 export function instantPatternToggle() {
 
-  // Wenn checkbox gesetzt ist
+  // If checked
   if(el('#instant-checkbox').checked) {
-    // Licht geht an
+    // Light turns on
     el('#instant-switch').className = 'instant-active';
     return;
   }  
-  // Licht geht aus
+  // Light turns off
   el('#instant-switch').className = 'instant-passive';
 }
 
 
 
 // #################################################
-// ########### FUNKTIONS-BUTTONS ###################
+// ############### FUNCTION BUTTONS ################
 // #################################################
 
-// Zwischen Step-Mode und Pattern-Mode wechseln
+/**
+ * Switches between step mode and pattern mode
+ */
 export function modeSwitch() {
 
-  // previewSound kontrolliert den Switch-Status
+  // Checks the switch status
   previewSound();
 
-  // wenn Switch auf pattern steht
+  // If in pattern mode
   if (el('#mode-switch').checked) {
 
-    // Steps der einzelnen Sounds sollen nicht mehr auf den Step-Buttons angezeigt werden
+    // Programmed steps shall not be displayed via step button lights
     soundCSSArr.forEach((button)=>{button.removeEventListener('click',toggleSound)
-    // die Lichter der Sound-Buttons sollen aber trotzdem funtkionieren
+    // Sound button lights, however, shall function as usual
     button.addEventListener('click',soundBtnLight);});
 
-    // für alle Step-Buttons toggleStep-Funktion entfernen & togglePattern-Funktion hinzufügen
+    // Removes toggleStep, adds togglePattern for all step buttons
     stepCSSArr.forEach((button)=>{
     button.removeEventListener('click',toggleStep);
     button.addEventListener('click',togglePattern);
     });
 
-    // aktive Step-Lichter ausschalten --> deleteCSSArr benutzen?
+    // Turns off active step lights --> use deleteCSSArr?
     stepCSSArr.forEach((button) => {
       button.classList.remove('step-active');
     });
 
-    //aktiviertes Pattern soll aufleuchten (activePtn-Variable liest Button-Attribut "pattern-active" aus)
+    // Turns on step button light of active pattern ('step-active' converts to 'pattern-active' via variable activePtn
     stepCSSArr[activePtn].classList.add('step-active'); 
   }
 
   else {
-    // Step-Modus wieder aktiv, 
+    // If in step mode 
     
     deleteCSSArr();
     voiceArrToStepCSSArr();
 
-    // Steps des angewählten Sounds anzeigen
+    // Displays active steps for active sound
     soundCSSArr.forEach((button)=>{button.addEventListener('click',toggleSound)});
 
-    // togglePattern aus- und toggleStep anschalten
+    // Remove togglePattern and add toggleStep to step buttons
     stepCSSArr.forEach((button)=>{
       button.removeEventListener('click',togglePattern);
       button.addEventListener('click',toggleStep);
@@ -256,7 +280,9 @@ export function modeSwitch() {
   }    
 }
 
-// Das aktuelle Pattern löschen
+/**
+ * Clears active pattern
+ */
 export function clearPattern() {
 
   deleteCSSArr();
@@ -275,11 +301,11 @@ export function clearPattern() {
   patternChange();
 }
 
-
-// Alle Steps für den ausgewählten Drumsound löschen
+/**
+ * Clears all steps for currently active voice
+ */
 export function clearVoice() {
 
-  // Alle gesetzten Steps der ausgewählten Stimme (activeSound) löschen
   for (let j = 0; j < voiceArr.length; j ++) { 
 
     if(soundCSSArr[j].classList.contains('activeSound')) {
@@ -289,25 +315,27 @@ export function clearVoice() {
       }
     }  
   }
-  // Step-Lichter löschen, wenn im Step-Mode, aber nicht, wenn im Pattern-Mode
+  // Turns off step lights only when in 'Step Mode'
   if (!el('#mode-switch').checked){
     deleteCSSArr();
   }
 }
 
 
-// ############# COPY-PATTERN-FUNKTION #############
+// ############# PATTERN COPY FUNCTION #############
 
-// Boolean für den Copy-Ptn-Mode
+// Boolean indicating 'Ptn Copy' mode
 let flag = false;
-// leere Variable für zu kopierendes Pattern
+// Empty variable for pattern to be copied
 let patternToCopy;
-
-// Pattern-Copy-Modus an- & ausschalten
+ 
+/**
+ * Toggles 'Ptn Copy' mode
+ */
 export function copyFlag() {
-
+  // return if not in pattern mode
   if(!el('#mode-switch').checked) {return;}
-
+  // Leaves 'Ptn Copy' mode if already in this mode
   if(flag === true){
     flag = false;
     el('#copy').className = '';
@@ -317,25 +345,30 @@ export function copyFlag() {
 
     return;
   } 
-    
+    // Enter 'Ptn Copy' mode
     flag = true;
     el('#copy').className = 'active';
 
     copyInit();
 }
 
-//zu kopierendes Pattern definieren & copyPattern Fkt den Buttons zuordnen
+
+/**
+ * Defines pattern to be copied and assigns copyPattern function to relevant buttons
+ */
 export function copyInit() {
 
-  // Das aktive Pattern wird in "patternToCopy" kopiert
+  // Copies active pattern to 'patternToCopy'
   patternToCopy = JSON.parse(JSON.stringify(ptnArr[activePtn]));
-
+  // Assigns copyPattern function to step buttons
   stepCSSArr.forEach((button) => {
     button.addEventListener('click', copyPattern);
   })
 }
 
-// zu kopierendes Pattern in den ausgewählten Pattern-Slot schreiben
+/**
+ * Writes patternToCopy to selected pattern memory
+ */
 function copyPattern() {
   
     ptnArr[this.getAttribute('data-step')] = patternToCopy;
@@ -346,12 +379,14 @@ function copyPattern() {
 }
 
 
-// ############### Wechsel der Drumkits ######################
+// ############### Drum kit toggle display ######################
 
+// Counter variable acting as index for drum kits
 export function kitCountToZero() {
   kitCount = 0;
 }
 
+// Displays drum kit name according to kitCount
 export function kitSelector() {
 
   kitCount ++;

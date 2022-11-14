@@ -1,5 +1,5 @@
 /**
- * Registers service worker for app installer
+ * Registers service worker for app installer. EXISTING SCRIPT USED.
  */
 export function serviceWorkerAktiv(){
     if('serviceWorker' in navigator){

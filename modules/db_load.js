@@ -34,13 +34,13 @@ export async function showLoadArea(){
     
     const data = await db.readAll();
     
-    // Prüfung auf vorhandene Projekt-Dateien
+    // If no existing project files
     if (data.length === 0){
-        // HTML Maske weg
+        // Removes load HTML mask
         const dbArea = el('#db-area');
         dbArea.innerHTML = '';
         dbArea.className = 'area-passiv';
-        // Hinweis an den User
+        // Message to user
         return alert('No project files available');
 
     } 

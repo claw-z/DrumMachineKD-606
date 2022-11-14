@@ -130,7 +130,7 @@ export function loopCycle() {
 
 
 /**
- * Starts and stops sequencer loop --> spaceBarPlay(), app.js
+ * Starts and stops sequencer loop --> app.js --> spaceBarPlay()
  */
 export function loopToggle() {
 

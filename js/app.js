@@ -7,62 +7,58 @@ import { initValue, initTime, loopToggle, spaceBarPlay } from "../modules/main.j
 import { serviceWorkerAktiv } from "../modules/service-aktiv.js";
 
 
-// Init-Werte
+// Init values
 initValue();
 initTime();
 
 
-// ########## BUTTONS ###########
-
-// META-FUNKTIONEN
-// showSaveArea an Button "#save" binden
+// META BUTTONS
+// Assigns showSaveArea to button '#save'
 click('#save',showSaveArea);
-// showLoadArea an Button "#load" binden
+// Assigns showLoadArea to button '#load'
 click('#load',showLoadArea);
-// Installation
+// Adds install functionality
 serviceWorkerAktiv();
 addInstallButton();
 
 
-// CONTROL-BEREICH
-// Inputs werden dort ausgelesen, wo die Werte verarbeitet werden, Volume bei sound.js und BPM bei main.js
-
-// loopToggle an Play-Button binden
+// CONTROL AREA
+// Note: volume is read by sound.js, BPM is read by main.js
+// Assign loopToggle to 'Play' button and space bar
 click('#play-stop',loopToggle);
 spaceBarPlay();
 
 
-// MODE-SWITCH & INST-PATTERN-CHANGE
-// Zwischen Step- und Pattern-Modus wechseln
+// MODE SWITCH & INST PTN
+// Toggle between step and pattern modes
 click('#mode-switch', modeSwitch);
 click('#instant-checkbox', instantPatternToggle);
 
 
-// PATTERN-KIT-BEREICH
-// clearPattern an Button "#ptn-clear" binden
+// PATTERN-KIT AREA
+// Assign clearPattern to button '#ptn-clear'
 click('#ptn-clear',clearPattern);
-// copyFlag an '#copy' binden
+// Assign copyFlag to button '#copy'
 click('#copy',copyFlag);
-// kitSelector an Button "#kit-selector" binden
+// Assign kitSelector to button '#kit-selector'
 click('#kit-selector',kitSelector);
-// clearVoice an Button "#voice-clear" binden
+// Assign clearVoice to button '#voice-clear'
 click('#voice-clear',clearVoice);
 
 
-// SOUND-BUTTONS
-// toggleSound an Sound-Buttons binden
+// SOUND BUTTONS
+// Assign toggleSound to sound buttons
 group('#sounds button').forEach((button)=>{
   button.addEventListener('click',toggleSound)
 });
 
 
-// STEP-BUTTONS
-// toggleStep an Step-Buttons binden
+// STEP BUTTONS
+// Assign toggleStep to step buttons
 group('#sequencer button').forEach((button)=>{
   button.addEventListener('click',toggleStep)
 });
-
-// Mousedown-Gesten für Step-Buttons innerhalb des Hauptbereichs (#main) ermöglichen
+// Mousedown functionality for step buttons inside of '#main' div
 el('#main').addEventListener('mousedown', (e) => {
   addMouseOver();
   e.preventDefault();}

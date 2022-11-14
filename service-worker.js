@@ -1,3 +1,7 @@
+/**
+ * Installation service worker. EXISTING SCRIPT USED.
+ */
+
 // Set a name for the current cache
 var cacheName = 'kd606'; 
 

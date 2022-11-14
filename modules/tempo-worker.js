@@ -1,3 +1,7 @@
+/**
+ * Service worker for loop timing
+ */
+
 let bpm;
 
 onmessage = e => {

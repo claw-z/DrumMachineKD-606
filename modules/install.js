@@ -1,5 +1,5 @@
 /**
- * Creates installer and install button
+ * Creates installer and install button. EXISTING SCRIPT USED HERE.
  */
 export function addInstallButton(){
   let deferredPrompt;
