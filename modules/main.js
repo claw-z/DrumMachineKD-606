@@ -161,22 +161,21 @@ export function spaceBarPlay() {
 }
 
 
-
 // ##########################################
 // ############ SEQUENCER LIGHT #############
 
 /**
  * Lights up a sequencer button --> loopLight
- * @param {string} button                   One of 16 sequencer buttons
- * @returns {string} button.classList.add   Adds class 'loopLight' to button
+ * @param {string} button            One of 16 sequencer buttons
+ * @returns {string} classList.add   Adds class 'loopLight' to button
  */
 function loopLightOn (button) {
   return button.classList.add('loopLight');
 }
 /**
  * Lets sequencer button light go out --> loopLight
- * @param {string} button                     One of 16 sequencer buttons
- * @returns {string} button.classList.remove  Removes class 'loopLight' from button
+ * @param {string} button              One of 16 sequencer buttons
+ * @returns {string} classList.remove  Removes class 'loopLight' from button
  */
 function loopLightOff (button) {
   return button.classList.remove('loopLight');
