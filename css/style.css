@@ -54,7 +54,7 @@ h1 {
     width: 100%;
     height: auto;
     background-color: grey;
-    padding: 5vw;
+    padding: 3vw 5vw 3vw 5vw;
     display: block;
     justify-content: center;
 }
@@ -87,7 +87,7 @@ h1 {
 #main {
     width: 100%;
     margin-left: 2%;
-    padding: 2%;
+    padding: 1%;
     background-color: rgb(36, 69, 121);
     border-radius: 3px;
 }
@@ -136,7 +136,7 @@ h1 {
 }
 
 #sounds {
-    height: 25%;
+    height: 18%;
     padding: 1%;
     background-color: aquamarine;
     align-items: flex-end;
@@ -147,10 +147,10 @@ h1 {
 }
 
 #title {
-    height: 15%;
+    height: 7%;
     display: flex;
     justify-content: right;
-    padding-top: .2vw;
+    _padding-top: .2vw;
     padding-right: .5vw;
     align-items: flex-start;
     text-align: right;
@@ -165,7 +165,7 @@ h1 {
 
 #sequencer {
     background-color: rgb(82, 112, 160);
-    height: 28%;
+    height: 20%;
     margin-top: 2%;
     padding: 0 2%;
     display: flex;
@@ -201,7 +201,7 @@ h1 {
 
 #yellow {
     background-color: yellow;
-    height: 45%;
+    height: 25%;
 }
 
 
@@ -237,7 +237,7 @@ button:focus {
 
 .sound-btn {
     width: 7vw;
-    height: 8vw;
+    height: 6vw;
     font-size: 1.3vw;
 }
 
