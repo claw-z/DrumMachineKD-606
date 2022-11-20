@@ -130,7 +130,8 @@ export function loopCycle() {
 
 
 /**
- * Starts and stops sequencer loop --> app.js --> spaceBarPlay()
+ * Starts and stops sequencer loop 
+ * @exports  app.js --> spaceBarPlay()
  */
 export function loopToggle() {
 
@@ -138,7 +139,7 @@ export function loopToggle() {
       loopCycle();
       previewSound();
       
-  }else{
+  } else {
       loopCycle();
       initTime();
       previewSound();
@@ -166,16 +167,18 @@ export function spaceBarPlay() {
 
 /**
  * Lights up a sequencer button --> loopLight
- * @param {string} button            One of 16 sequencer buttons
- * @returns {string} classList.add   Adds class 'loopLight' to button
+ * @param {object} button            One of 16 sequencer buttons
+ * @returns {function} classList.add   Adds class 'loopLight' to button
  */
 function loopLightOn (button) {
+  // check type of button-object
+  
   return button.classList.add('loopLight');
 }
 /**
  * Lets sequencer button light go out --> loopLight
- * @param {string} button              One of 16 sequencer buttons
- * @returns {string} classList.remove  Removes class 'loopLight' from button
+ * @param {object} button              One of 16 sequencer buttons
+ * @returns {function} classList.remove  Removes class 'loopLight' from button
  */
 function loopLightOff (button) {
   return button.classList.remove('loopLight');
