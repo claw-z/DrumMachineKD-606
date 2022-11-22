@@ -18,8 +18,8 @@ click('#save',showSaveArea);
 // Assigns showLoadArea to button '#load'
 click('#load',showLoadArea);
 // Adds install functionality
-serviceWorkerAktiv();
-addInstallButton();
+// serviceWorkerAktiv();
+// addInstallButton();
 
 
 // CONTROL AREA
