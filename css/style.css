@@ -82,6 +82,7 @@ h1 {
     align-items: center;
     justify-content: center;
     border-radius: 3px;
+    padding: 1vw;
 }
 
 #title {
