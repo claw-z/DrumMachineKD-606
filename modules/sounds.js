@@ -41,7 +41,7 @@ export const soundObj = {
       
       let drumSound = new Audio();
   
-      drumSound.volume = inputVolume;
+      drumSound.volume = outputVolume;
       
       if (kitCount === 0) {
         drumSound.src = tr606[i];
@@ -71,7 +71,7 @@ export const soundObj = {
      */
     playHiHat: function(i){
       let hiHat = this.hiHat;
-      hiHat.volume = inputVolume;
+      hiHat.volume = masterVolume;
       
       if (kitCount === 0) {
         hiHat.src = tr606[i];
@@ -96,20 +96,38 @@ export const soundObj = {
   
 
 
-// ############## SET VOLUME #####################
+// ############## SET MASTER VOLUME #####################
 // Select volume slider
 let volumeSlider = el('#volume');
 
 // Read value of volume slider
-let inputVolume = volumeSlider.value;
+let masterVolume = volumeSlider.value;
 
 // Change volume upon volume slider value change
 volumeSlider.onchange = function() {
-inputVolume = volumeSlider.value;
+  masterVolume = volumeSlider.value;
+  outputVolume = masterVolume * voiceVolume;
+  console.log('masterVolume:', masterVolume)
 };
 
+// ############## SET VOICE VOLUME #####################
 
+// Select slider for bass drum
+let bdVolume = el('#vol-bd');
 
+// Read value of BD volume
+let voiceVolume = bdVolume.value;
+
+bdVolume.onchange = function() {
+  voiceVolume = bdVolume.value
+  outputVolume = masterVolume * voiceVolume;
+  console.log('voiceVolume:', voiceVolume)
+  console.log('masterVolume:', masterVolume)
+}
+
+// ############## CALCULATE OUTPUT VOLUME #####################
+
+let outputVolume = masterVolume * voiceVolume;
 
 // ########## STEP AND PATTERN MEMORY ##########
 

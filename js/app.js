@@ -58,9 +58,9 @@ group('#sounds button').forEach((button)=>{
 group('#sequencer button').forEach((button)=>{
   button.addEventListener('click',toggleStep)
 });
-// Mousedown functionality for step buttons inside of '#main' div
-el('#main').addEventListener('mousedown', (e) => {
+// Mousedown functionality for step buttons inside of '#sequencer' div
+el('#sequencer').addEventListener('mousedown', (e) => {
   addMouseOver();
   e.preventDefault();}
 );
-el('#main').addEventListener('mouseup', removeMouseOver);
+el('#sequencer').addEventListener('mouseup', removeMouseOver);
