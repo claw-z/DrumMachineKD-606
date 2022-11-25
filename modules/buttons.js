@@ -7,7 +7,7 @@ import { activePtn, activePtnChange, changeVoiceArr, ptnArr, soundObj, voiceArr 
 export let kitCount;
 
 
-// ####### BUTTON ARRAYS ##############
+// ####### BUTTON AND FADER ARRAYS ##############
 
 // Step buttons
 export const stepCSSArr = group('#sequencer button');

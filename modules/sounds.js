@@ -1,5 +1,5 @@
 import { kitCount } from './buttons.js';
-import { el, loadJSON } from './lib.js';
+import { el, group, loadJSON } from './lib.js';
 import { beatCount } from './main.js';
 
 
@@ -41,7 +41,7 @@ export const soundObj = {
       
       let drumSound = new Audio();
   
-      drumSound.volume = outputVolume;
+      drumSound.volume = masterVolume * faderArr[i].value;
       
       if (kitCount === 0) {
         drumSound.src = tr606[i];
@@ -71,7 +71,7 @@ export const soundObj = {
      */
     playHiHat: function(i){
       let hiHat = this.hiHat;
-      hiHat.volume = masterVolume;
+      hiHat.volume = masterVolume * faderArr[i].value;
       
       if (kitCount === 0) {
         hiHat.src = tr606[i];
@@ -90,7 +90,6 @@ export const soundObj = {
       }
   
       hiHat.play();
-      // console.log(hiHat.getAttribute('src'));
     },
 }
   
@@ -106,31 +105,23 @@ let masterVolume = volumeSlider.value;
 // Change volume upon volume slider value change
 volumeSlider.onchange = function() {
   masterVolume = volumeSlider.value;
-  outputVolume = masterVolume * voiceVolume;
+  
   console.log('masterVolume:', masterVolume)
 };
 
-// ############## SET VOICE VOLUME #####################
+// ############## VOICE FADER ARRAY #################
 
-// Select slider for bass drum
-let bdVolume = el('#vol-bd');
+// Array for all 8 voice faders with data-index and a default value of 0.8 each
+// Fader values are read within playSound-function
+const faderArr = group('#sounds input');
+// Assign index to each sound button
+faderArr.forEach((button, index) => {
+  button.setAttribute('data-index', index);
+  button.setAttribute('value', 0.8);
+})
 
-// Read value of BD volume
-let voiceVolume = bdVolume.value;
-
-bdVolume.onchange = function() {
-  voiceVolume = bdVolume.value
-  outputVolume = masterVolume * voiceVolume;
-  console.log('voiceVolume:', voiceVolume)
-  console.log('masterVolume:', masterVolume)
-}
-
-// ############## CALCULATE OUTPUT VOLUME #####################
-
-let outputVolume = masterVolume * voiceVolume;
 
 // ########## STEP AND PATTERN MEMORY ##########
-
 
 // Basic step memory: 16 Steps each for all 8 voices
 export let voiceArr = [
