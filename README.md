@@ -30,7 +30,7 @@ Run index.html in your browser. You can install the app as a progressive web app
 Project files are saved in the browser memory via IndexedDB.
 
 ## Issues
-- Playback of newly entered steps starts with delayed timing and stabilizes only after one bar.
+- Playback of newly entered steps starts with delayed timing that stabilizes only after one bar.
 - Interaction of open and closed hihat regarding choking and step-overwrite needs improvement.
 
 ## Future additions
