@@ -1,247 +1,230 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
+    <link rel="manifest" href="manifest.json" />
+
     <!-- JavaScript -->
     <script src="js/app.js" type="module" defer></script>
 
     <!-- Stylesheets -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/db_style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/db_style.css" rel="stylesheet" />
 
     <!-- Icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
     <!-- Titel -->
     <title>Drum Machine KD-606 MK II</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="container">
-        <div id="meta">
-            <div id="meta-btns">
-                <button id = "save">SAVE</button>
-                <button id = "load">LOAD</button>
-                <button class="add-button">INSTALL</button>
-            </div>
-        
-            <div id = "project-info">
-                <p id = "file-info">PROJECT: undefined</p>
-            </div>
-        </div>
-        
-        
-        <div id="machine">
-            
-            <div id="controls">
-                            
-                <input type="range" id="volume" step="0.05" min="0" max="0.7"> 
-                <label for="volume">VOLUME</label>
-                    
-                <input type="text" id="bpm" name="bpm">  
-                <label for="bpm">BPM</label> 
-
-                <button id="play-stop" class="control-btn">PLAY<br>STOP</button>
-
-            </div>
-
-            <div id="main">    
-
-                <div id="title"><h1>Drum Machine KD-606 MK II</h1></div>
-
-                <div id="ptn-kit-controls">
-
-                    <div id="mode-mute-solo">
-
-                        <div id="mode">
-
-                            <p id="ptn">PTN</p>
-
-                            <label class="switch">
-                            <input type="checkbox" id="mode-switch">
-                            <span class="slider"></span>
-                            </label>
-
-                            <p id="step">STEP</p>
-                        </div>
-
-                        <div id="instant">
-
-                            <p>INST <br> PTN</p>
-
-                            <input type="checkbox"  id="instant-checkbox">
-                            <label for="instant-checkbox" class="instant-passive" id="instant-switch"></label>
-                            
-                            
-                        </div>
-                        
-                    </div>
-
-                    <div id="ptn-buttons">     
-                        <button id = "ptn-clear">PTN CLR</button>
-                        <button id = "copy">PTN CPY</button>
-                    </div>
-
-                    <div id="kits">
-                        <div id="kit-display"></div>
-                        <button id="kit-selector">KIT SLCT</button>
-                    </div>
-
-                    <div id="vce-clr-container">
-                        <button id="voice-clear">VCE CLR</button>
-                    </div>
-                    
-                </div>
-                
-                <!-- <div id="yellow"></div>                 -->
-
-                <div id="sounds">
-                    
-                    <div id="sound-controls" class="row">
-
-                        <div class="column voiceunit">
-                            <div class="row gimmesomespace"></div>
-                            <div class="row faderbox">
-                                <input type="range" step="0.05" min="0" max="1">                                
-                            </div>
-                            <div class="row gimmesomespace"></div>
-                            <div class="row buttonbox">
-                                <button class="sound-btn">BASS<br>DRUM</button>
-                            </div>
-                        </div>
-                        
-                        <div class="column voiceunit">
-                            <div class="row gimmesomespace"></div>
-                            <div class="row faderbox">
-                                <input type="range" step="0.05" min="0" max="1">
-                            </div>
-                            <div class="row gimmesomespace"></div>
-                            <div class="row buttonbox">
-                                <button class="sound-btn">SNARE<br>DRUM</button>
-                            </div>
-                        </div>
-
-                        <div class="column voiceunit">
-                            <div class="row gimmesomespace"></div>
-                            <div class="row faderbox">
-                                <input type="range" step="0.05" min="0" max="1">
-                            </div>
-                            <div class="row gimmesomespace"></div>
-                            <div class="row buttonbox">
-                                <button class="sound-btn">LOW<br> TOM</button>
-                            </div>
-                        </div>
-                        
-                        <div class="column voiceunit">
-                            <div class="row gimmesomespace"></div>
-                            <div class="row faderbox">
-                                <input type="range" step="0.05" min="0" max="1">
-                            </div>
-                            <div class="row gimmesomespace"></div>
-                            <div class="row buttonbox">
-                                <button class="sound-btn">HI<br>TOM</button>
-                            </div>
-                        </div>
-                        
-                        <div class="column voiceunit">
-                            <div class="row gimmesomespace"></div>
-                            <div class="row faderbox">
-                                <input type="range" step="0.05" min="0" max="1">
-                            </div>
-                            <div class="row gimmesomespace"></div>
-                            <div class="row buttonbox">
-                                <button class="sound-btn">CLAP</button>
-                            </div>
-                        </div>
-                        
-                        <div class="column voiceunit">
-                            <div class="row gimmesomespace"></div>
-                            <div class="row faderbox">
-                                <input type="range" step="0.05" min="0" max="1">
-                            </div>
-                            <div class="row gimmesomespace"></div>
-                            <div class="row buttonbox">
-                                <button class="sound-btn">CYMBAL</button>
-                            </div>
-                        </div>
-                        
-                        <div class="column voiceunit">
-                            <div class="row gimmesomespace"></div>
-                            <div class="row faderbox">
-                                <input type="range" step="0.05" min="0" max="1">
-                            </div>
-                            <div class="row gimmesomespace"></div>
-                            <div class="row buttonbox">
-                                <button class="sound-btn">OPEN<br>HIHAT</button>
-                            </div>
-                        </div>
-                        
-                        <div class="column voiceunit">
-                            <div class="row gimmesomespace"></div>
-                            <div class="row faderbox">
-                                <input type="range" step="0.05" min="0" max="1">
-                            </div>
-                            <div class="row gimmesomespace"></div>
-                            <div class="row buttonbox">
-                                <button class="sound-btn">CLOSED<br>HIHAT</button>
-                            </div>
-                        </div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-
-                    </div>
-                  
-                </div>
-
-                <div id="sequencer">
-                    
-                    <div>
-                        <button class="step-btn">1</button>
-                        <button class="step-btn">2</button>
-                        <button class="step-btn">3</button>
-                        <button class="step-btn">4</button>
-                    </div>
-                    <div>
-                        <button class="step-btn">5</button>
-                        <button class="step-btn">6</button>
-                        <button class="step-btn">7</button>
-                        <button class="step-btn">8</button>
-                    </div>
-                    <div>
-                        <button class="step-btn">9</button>
-                        <button class="step-btn">10</button>
-                        <button class="step-btn">11</button>
-                        <button class="step-btn">12</button>
-                    </div>
-                    <div>
-                        <button class="step-btn">13</button>
-                        <button class="step-btn">14</button>
-                        <button class="step-btn">15</button>
-                        <button class="step-btn">16</button>
-                    </div>          
-                                                  
-                </div>  
-            </div>        
+      <div id="meta">
+        <div id="meta-btns">
+          <button id="save">SAVE</button>
+          <button id="load">LOAD</button>
+          <button class="add-button">INSTALL</button>
         </div>
 
+        <div id="project-info">
+          <p id="file-info">PROJECT: undefined</p>
+        </div>
+      </div>
+
+      <div id="machine">
+        <div id="controls">
+          <input type="range" id="volume" step="0.05" min="0" max="0.7" />
+          <label for="volume">VOLUME</label>
+
+          <input type="text" id="bpm" name="bpm" />
+          <label for="bpm">BPM</label>
+
+          <button id="play-stop" class="control-btn">PLAY<br />STOP</button>
+        </div>
+
+        <div id="main">
+          <div id="title"><h1>Drum Machine KD-606 MK II</h1></div>
+
+          <div id="ptn-kit-controls">
+            <div id="mode-mute-solo">
+              <div id="mode">
+                <p id="ptn">PTN</p>
+
+                <label class="switch">
+                  <input type="checkbox" id="mode-switch" />
+                  <span class="slider"></span>
+                </label>
+
+                <p id="step">STEP</p>
+              </div>
+
+              <div id="instant">
+                <p>
+                  INST <br />
+                  PTN
+                </p>
+
+                <input type="checkbox" id="instant-checkbox" />
+                <label
+                  for="instant-checkbox"
+                  class="instant-passive"
+                  id="instant-switch"
+                ></label>
+              </div>
+            </div>
+
+            <div id="ptn-buttons">
+              <button id="ptn-clear">PTN CLR</button>
+              <button id="copy">PTN CPY</button>
+            </div>
+
+            <div id="kits">
+              <div id="kit-display"></div>
+              <button id="kit-selector">KIT SLCT</button>
+            </div>
+
+            <div id="vce-clr-container">
+              <button id="voice-clear">VCE CLR</button>
+            </div>
+          </div>
+
+          <!-- <div id="yellow"></div>                 -->
+
+          <div id="sounds">
+            <div id="sound-controls" class="row">
+              <div class="column voiceunit">
+                <div class="row gimmesomespace"></div>
+                <div class="row faderbox">
+                  <input type="range" step="0.05" min="0" max="1" />
+                </div>
+                <div class="row gimmesomespace"></div>
+                <div class="row buttonbox">
+                  <button class="sound-btn">BASS<br />DRUM</button>
+                </div>
+              </div>
+
+              <div class="column voiceunit">
+                <div class="row gimmesomespace"></div>
+                <div class="row faderbox">
+                  <input type="range" step="0.05" min="0" max="1" />
+                </div>
+                <div class="row gimmesomespace"></div>
+                <div class="row buttonbox">
+                  <button class="sound-btn">SNARE<br />DRUM</button>
+                </div>
+              </div>
+
+              <div class="column voiceunit">
+                <div class="row gimmesomespace"></div>
+                <div class="row faderbox">
+                  <input type="range" step="0.05" min="0" max="1" />
+                </div>
+                <div class="row gimmesomespace"></div>
+                <div class="row buttonbox">
+                  <button class="sound-btn">
+                    LOW<br />
+                    TOM
+                  </button>
+                </div>
+              </div>
+
+              <div class="column voiceunit">
+                <div class="row gimmesomespace"></div>
+                <div class="row faderbox">
+                  <input type="range" step="0.05" min="0" max="1" />
+                </div>
+                <div class="row gimmesomespace"></div>
+                <div class="row buttonbox">
+                  <button class="sound-btn">HI<br />TOM</button>
+                </div>
+              </div>
+
+              <div class="column voiceunit">
+                <div class="row gimmesomespace"></div>
+                <div class="row faderbox">
+                  <input type="range" step="0.05" min="0" max="1" />
+                </div>
+                <div class="row gimmesomespace"></div>
+                <div class="row buttonbox">
+                  <button class="sound-btn">CLAP</button>
+                </div>
+              </div>
+
+              <div class="column voiceunit">
+                <div class="row gimmesomespace"></div>
+                <div class="row faderbox">
+                  <input type="range" step="0.05" min="0" max="1" />
+                </div>
+                <div class="row gimmesomespace"></div>
+                <div class="row buttonbox">
+                  <button class="sound-btn">CYMBAL</button>
+                </div>
+              </div>
+
+              <div class="column voiceunit">
+                <div class="row gimmesomespace"></div>
+                <div class="row faderbox">
+                  <input type="range" step="0.05" min="0" max="1" />
+                </div>
+                <div class="row gimmesomespace"></div>
+                <div class="row buttonbox">
+                  <button class="sound-btn">OPEN<br />HIHAT</button>
+                </div>
+              </div>
+
+              <div class="column voiceunit">
+                <div class="row gimmesomespace"></div>
+                <div class="row faderbox">
+                  <input type="range" step="0.05" min="0" max="1" />
+                </div>
+                <div class="row gimmesomespace"></div>
+                <div class="row buttonbox">
+                  <button class="sound-btn">CLOSED<br />HIHAT</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="sequencer">
+            <div>
+              <button class="step-btn">1</button>
+              <button class="step-btn">2</button>
+              <button class="step-btn">3</button>
+              <button class="step-btn">4</button>
+            </div>
+            <div>
+              <button class="step-btn">5</button>
+              <button class="step-btn">6</button>
+              <button class="step-btn">7</button>
+              <button class="step-btn">8</button>
+            </div>
+            <div>
+              <button class="step-btn">9</button>
+              <button class="step-btn">10</button>
+              <button class="step-btn">11</button>
+              <button class="step-btn">12</button>
+            </div>
+            <div>
+              <button class="step-btn">13</button>
+              <button class="step-btn">14</button>
+              <button class="step-btn">15</button>
+              <button class="step-btn">16</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="copyright">&copy 2022 Claus Corves & Gesa Geppert</div>
 
     <!-- Area for saving/loading project files -->
-    <div id = "db-area" class = "area-passiv"></div>
-    
+    <div id="db-area" class="area-passiv"></div>
+
     <!-- <input type="range" id="test"> -->
-</body>
+  </body>
 </html>
